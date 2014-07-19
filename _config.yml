@@ -21,4 +21,4 @@ version:          1.0.0
 github:
   repo:           https://github.com/deebuls
 
-gem:              ["emoji_for_jekyll"]
+gem:              [jemoji]
