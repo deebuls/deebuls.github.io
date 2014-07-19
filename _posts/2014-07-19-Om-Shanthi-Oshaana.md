@@ -7,15 +7,17 @@ title: Ohm Shanthi Oshaana.. Unconventional
 ![Poster](http://malayalammovietalk.com/wp-content/uploads/2014/02/Ohm-Shanthi-Oshaana.jpg)
 -----
 
-Some movies make a very significant impact, it shakes you from the conventional film watching paradigm. I would like to present Ohm Shanthi Oshaana 
+Some movies make a very significant impact, it shakes you from the conventional film watching paradigm.
+I would like to present Ohm Shanthi Oshaana 
 in this elite list.
+:woman:
+First and most a female protagonist, could any one imagine malayalam film with such a point of view.
+Never in my 10 years of active film watching(exageration included), 
+I had the opportunity to watch of a female protagonist script and that too a comedy romantic.
 
-First and most a female protagonist:woman:, could any one imagine malayalam film with such a point of view. Never in my 10 years of active film watching(exageration included), 
-I had the opportunity of a female protagonist script and that too a comedy romantic.
-
-Story telling ..  right from the days from which civilization existed story telling is an important skill. To maintain the interest of the audience
+Story telling ..  right from the days from which films existed story telling is an important skill. To maintain the interest of the audience
 in each scene and not loosing them even for a frame is what both Jude Anthany Joseph and Midhun Manuel have excelled without doubts.
-
+:claps:
 
 ### Story line
 
@@ -32,10 +34,10 @@ And as expected Pooja falls for Giri..:cupid:
 But Giri has a background and he is not towards pooja who is still 17 and makes it clear to her to concentrate on her studies.. boo:thumbsdown: .. not good .
 Now Pooja goes for her higher studies as doctor. Life has moved on she is living a mechanical life but wait she still has  the gift given by Giri.
 Hmm so she has not moved on. Here comes Dr. Prasad Varkey .. whistle pood:clap: for Vineeth Srinivasan. A young dashing succesful Doctor and guess what 
-he befriends Pooja. They laugh ha ha , they chat , they move around and LOVE:heart:..oops soory  <del>LOVE</del> But they dont fall in love, they are friends. She talks to him about her lost love and he supports her 
+he befriends Pooja. They laugh ha ha , they chat , they move around and LOVE:heart:..oops soory  NO <del>LOVE</del> They dont fall in love, they are friends. She talks to him about her lost love and he supports her 
 and asks her to go for him.
 
-Also a character Jacob Tharackan a fun loving Jolly good person meets Pooja. A very apt role by Lal Jose.
+Also a interesting character Jacob Tharackan a fun loving Jolly good person meets Pooja. A very apt role by played Lal Jose.
 
 Now how Pooja with advices from Annie teacher, Dr Prasad and Jacob faces her life the movie unviels itself.
 Not to forget the role of Oshana and Ohm Shanti. Its a take away:v:.
