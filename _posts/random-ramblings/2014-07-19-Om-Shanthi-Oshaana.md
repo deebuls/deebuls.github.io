@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Ohm Shanthi Oshaana.. Unconventional 
+categories: films
 ---
 
 *Ohm Shanthi Oshaana* is one of the rarest Malayalam romantic comedy, the Film industry has seen in the recent years. A rare phenomenon in HERO claded Malayalam film industry, here comes a women woven story!.
