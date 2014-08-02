@@ -16,27 +16,28 @@ loosess the semantics in it.
 
 The Book [Being Different, An Indian Challenge to Western Universalism](www.beingdifferentbook.com) 
 examines the differences between the Indian way of thinking to that of the western.
+One of the major differences is in the languages used in the both cultures. Which the book critiques as the 
 
-On of the major differences is in the languages used in the both cultures. Which the book critiques as the 
+> fashionable reductive translations and argues for preserving certain non-translatable words of संस्कृत.
 
-> fashionable reductive translations and argues for preserving certain non-translatable words of Sanskrit.
+### Non Translatable संस्कृत  Mantras by Rajiv Malhotra 
 
-## Non Translatable Sanskrit Mantras by Rajiv Malhotra 
+The following are the main reasons for preserving  संस्कृत as the way it is :
 
-### Unique claim of Sanskrit
+### Unique claim of संस्कृत
 
 * Vibrations, not merely meaning; each vibration has a defined effect
 * One vibration cannot be substituted for another; hence non-translatability
 
-### Sanskrit protects dharma from digestion
+### संस्कृत protects dharma from digestion
 
 * When fully translated, dharma dissolves as subset of Judeo-Christianity
-* Add certain Sanskrit words into English: potential as poison pills
-* Sanskrit influence on pan-Asian Sanskriti
+* Add certain संस्कृत words into English: potential as poison pills
+* संस्कृत influence on pan-Asian Sanskriti
 
 ## List of Non-Translatables
 
-|Sanskrit Word    | Its Not equal to |
+|संस्कृत Word    | Its Not equal to |
 |:---|:---|
 | **Brahman** | **GOD** |
 | Brahman comes from root word "brih" means to expand.  The all-expansive ultimate reality that creates all, lives in all and transcends all.    | In Judaism, GOD was seen on Mount Sinai who is creator of universe| 
@@ -49,11 +50,11 @@ On of the major differences is in the languages used in the both cultures. Which
 | Atman is present in plants and animals.  Hence nature is as sacred as the self.   | Soul is NOT PRESENT in plants and animal. In Bible, GOD gave mankind dominion over plants and animals.|
 | Atman reincarnates. Hence the body is cremated once atman has departed.|   Soul DOES NOT reincarnate. Hence in Christianity you get only one body that must be preserved till the 'end of time'.|
 | **Dharma** | **Religion** |
-| Dharma comes from Sanskrit word 'dhri' which means 'that which upholds' or 'that without which nothing can stand' or ''that which maintains stability and harmony of universe''.| Religion is worship of divine that is separate from human, has religious institution/authority and governed. Religious rituals are based on events that happened some time in history. Hence all Abrahmic religions i.e., Judaism, Christianity and Islam are history-centric.|
+| Dharma comes from संस्कृत word 'dhri' which means 'that which upholds' or 'that without which nothing can stand' or ''that which maintains stability and harmony of universe''.| Religion is worship of divine that is separate from human, has religious institution/authority and governed. Religious rituals are based on events that happened some time in history. Hence all Abrahmic religions i.e., Judaism, Christianity and Islam are history-centric.|
 | Dharma is conduct, duty, justice, morality, virtue, right and much more.  Animals, Plants, Electrons have dharma but no Religion.    | No such explanation for Religion. Also, Religion is only for humans.|
 | Dharma is not LAW as law is authoritative.   | Western religion believe GOD's law must be obeyed and hence non-followers must be converted or punished.|
 | **Murthi**  | **Idol** | 
-| Sanskrit word 'Murti' means real, awakened and expressive of divine spirit.| In Christianity, If an object is revered/respected but not worshipped is termed as 'ICON' but if elevated as divine status it is called 'IDOL'. In Orthodox Christianity, icons/images are KISSED, TOUCHED, REVERED, RESPECTED but 'technically' not worshipped.  What Christians revere are ICONS while images, murtis, devotional objects were termed IDOLS and not ICONS.|
+| संस्कृत word 'Murti' means real, awakened and expressive of divine spirit.| In Christianity, If an object is revered/respected but not worshipped is termed as 'ICON' but if elevated as divine status it is called 'IDOL'. In Orthodox Christianity, icons/images are KISSED, TOUCHED, REVERED, RESPECTED but 'technically' not worshipped.  What Christians revere are ICONS while images, murtis, devotional objects were termed IDOLS and not ICONS.|
 | Prana-Pratishtha' pooja is the ritual of infusing the Murtis with prana or divine energy. Its only after prana-pratishtha pooja is offered to Murtis. |  No such thing happens with idols.|
 | Visarjan is the ritual of throwing the Murti in holy water to encourage detachment from the Murti ie encourages non-attachment to Murtis.   | No such thing happens with idols|
 | As per Aurobindo, it is not the stone but the divine presence/energy in the Murti to which the prayer is offered  |  |
