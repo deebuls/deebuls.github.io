@@ -5,6 +5,13 @@ tagline: My Journey inside
 ---
 {% include JB/setup %}
 
+<svg width="500" height="50">
+    <circle cx="25" cy="25" r="20" fill="rgba(128, 0, 128, 1.0 )" />
+    <circle cx="50" cy="25" r="20" fill="rgba(0, 0, 255, 0.75 )" />
+    <circle cx="75" cy="25" r="20" fill="rgba(0, 255, 0, 0.5 )" />
+    <circle cx="100" cy="25" r="20" fill="rgba(255, 255, 0, 0.25 )" />
+    <circle cx="125" cy="25" r="20" fill="rgba(255, 0, 0, 0.1 )" />
+</svg>
 
 To start with my name **"Deebul"** doesnt have a meaning. Long story short, they were
 rhyming and second most important they thought they were doing something cool. 
