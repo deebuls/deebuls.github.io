@@ -43,8 +43,7 @@ SOCIAL = (('You can add links in your config file', '#'),
           ('Another social link', '#'),)
 
 MENUITEMS = [('Blog', '/blog.html'), 
-             ('About', '/pages/about.html'),
-             ('AIOS', 'https://github.com/jcrist/AIOs')]
+             ('About', '/pages/about.html') ]
 
 DEFAULT_PAGINATION = 10
 
