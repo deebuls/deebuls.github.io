@@ -6,7 +6,7 @@
     <!--RSS FEEDS-->
         <link rel="alternate"  href="http://deebuls.github.io/feeds/all.atom.xml" type="application/atom+xml" title="Simpleton Full Atom Feed"/>
 
-    <title>Lets proove Bayesian vs Frequentism // Simpleton</title>
+    <title>Naive Bayes Implementation using Pandas // Simpleton</title>
     <link rel="stylesheet" href="http://deebuls.github.io/theme/css/normalize.css" type="text/css" />
     <link rel="stylesheet" href="http://deebuls.github.io/theme/css/base.css" type="text/css" />
     <link rel="stylesheet" href="http://deebuls.github.io/theme/css/code.css" type="text/css" />
@@ -38,10 +38,12 @@
     <!--Content, footer, and scripts-->
     <div class="container">
     <div class="page-title">
-        <h1>Lets proove Bayesian vs Frequentism</h1>
-        <p>Sa 16 Juli 2016 &mdash; under
-            <a class="post-category" href="http://deebuls.github.io/tag/bayes.html">bayes</a>,
-            <a class="post-category" href="http://deebuls.github.io/tag/statistics.html">statistics</a>
+        <h1>Naive Bayes Implementation using Pandas</h1>
+        <p>Fr 13 Januar 2017 &mdash; under
+            <a class="post-category" href="http://deebuls.github.io/tag/bayes.html">Bayes</a>,
+            <a class="post-category" href="http://deebuls.github.io/tag/python.html">Python</a>,
+            <a class="post-category" href="http://deebuls.github.io/tag/machine-learning.html">Machine Learning</a>,
+            <a class="post-category" href="http://deebuls.github.io/tag/pandas.html">Pandas</a>
         </p>
     </div>
     <style type="text/css">/*!
@@ -1019,13 +1021,12 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Bayesian-vs-Frequentist">Bayesian vs Frequentist<a class="anchor-link" href="#Bayesian-vs-Frequentist">¶</a></h1><p>There is a lot of ink spent on the topic by most prominent scholars of all time so I really dont want to add anything to the debate.</p>
-<p>The 1 paper which influenced me in getting a practical overview of the topic and showing tangiblly was by Jake Vanderplass , where he explains with 2 examples</p>
-<ul>
-<li>The table example</li>
-<li>The coin example</li>
-</ul>
-<p>It establishes from a practical prespective that Bayesian answer to the problem is near to the real world. But it made me thinking how do we know the real world answer? Either we need to play the table example for 1000 times or toss the coin 1000 times. The answer to the question is <strong>YES</strong> again which was provided by Jake himself in another (talk)[]. So in this work I try to experimentally validate both the experiments by running the examples 1000 times and finding the real values.</p>
+<h1 id="Naive-Bayes">Naive Bayes<a class="anchor-link" href="#Naive-Bayes">¶</a></h1><p><a href="https://en.wikipedia.org/wiki/Naive_Bayes_classifier">Naive Bayes</a> is one of the simplest classification machine learning algorithm. As the name suggests its based on the Bayes theorem.</p>
+<p>Doing my thesis using Probabilistic Programming I always had read about many models and how it compared with Naive Bayes classifier. Even though of the simplicity Naive bayes is a pretty solid and basic classifier every machine learning student should know. But I never had an opportunity to fully understand this simple tool mainly because I used it like a blackbox using many implementations available, the most famous being from <a href="http://scikit-learn.org/stable/modules/naive_bayes.html">scikit learn</a>.</p>
+<p>I got inspired by <a href="https://sebastianraschka.com/faq/docs/implementing-from-scratch.html">Sebastian Raschka</a> about implementing machine learning algorithms from scarch. I completely agree to the argument that it just improves your learning. So here I start with the simple implementation of the Naive Bayes and later using the Probabilistic Programming prespective.</p>
+<h2 id="Bayes-Theorem">Bayes Theorem<a class="anchor-link" href="#Bayes-Theorem">¶</a></h2>$$ P(A|B) = \frac{P(B|A) P(A) }{P(B)}$$<p>The above formula can be reinterpreted in the machine learning terms of features and class label. Classification is a problem of assigning classes based on the features provided.</p>
+$$ P(class | features ) = \frac{P(features | class) P(class)}{P(features)}$$<p>For example we need to classify a person's sex based on the height and weight. So here the class={male,female} and features={height,weight}, and the formula can he re-written as :</p>
+$$ P(sex | height, weight ) = \frac{P(height, weight | sex) P(sex)}{P(height,weight)}$$<p>Based on these information lets go ahead and implement the algorithm on a discretized problem using the vectorization properties of the problem. To understand what is vectorization of problem please read <a href="http://www.labri.fr/perso/nrougier/from-python-to-numpy/">From Python to Numpy</a>.</p>
 </div>
 </div>
 </div>
@@ -1034,76 +1035,23 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="The-Table-example">The Table example<a class="anchor-link" href="#The-Table-example">¶</a></h1><p>Where frequentist and Bayesian differ. [<a href="http://www.rpgroup.caltech.edu/courses/PBoC_CSHL_2015/files_2015/articles/eddy%20bayesian%20methods.pdf">http://www.rpgroup.caltech.edu/courses/PBoC_CSHL_2015/files_2015/articles/eddy%20bayesian%20methods.pdf</a>]</p>
-<p>Problem is to find the conditional probability of Bob wining given that Alice has won 5 and Bob 3. The game is won whoever reaches 6 points first!</p>
-<h2 id="P(Bob-|-A=5,-B=3)-?">P(Bob | A=5, B=3) ?<a class="anchor-link" href="#P(Bob-|-A=5,-B=3)-?">¶</a></h2>
+<h1 id="Dataset">Dataset<a class="anchor-link" href="#Dataset">¶</a></h1><p>Lets see and example problem .
+This is the data set that we will be using is shown bellow .</p>
+<p>In the above dataset if we give the hypothesis =</p>
+<h2 id='{"Age":'&lt;=30',-"Income":"medium",-"Student":'yes'-,-"Creadit_Rating":'fair'}'>{"Age":'<=30', "Income":"medium", "Student":'yes' , "Creadit_Rating":'fair'}<a class="anchor-link" href='#{"Age":'&lt;=30',-"Income":"medium",-"Student":'yes'-,-"Creadit_Rating":'fair'}'>¶</a></h2><p>then what is the probability that he will buy or will not buy a computer.</p>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [6]:</div>
+<div class="prompt input_prompt">In [2]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="kn">as</span> <span class="nn">stats</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [43]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">prob_bob_wining</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># Dataset</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
-    <span class="n">count_alice_win</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">count_bob_win</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">count_cond_hit</span> <span class="o">=</span> <span class="mi">0</span>
-
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">):</span>
-        <span class="c"># Select random p </span>
-        <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">alice</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">bob</span> <span class="o">=</span> <span class="mi">0</span>
-
-        <span class="n">flag_condition</span> <span class="o">=</span> <span class="bp">False</span>
-        
-        <span class="c"># Loop till anyone wins. The game ends when anyone reaches 6 points</span>
-        <span class="k">while</span> <span class="p">(</span><span class="n">alice</span> <span class="o"><</span> <span class="mi">6</span> <span class="ow">and</span> <span class="n">bob</span> <span class="o"><</span> <span class="mi">6</span><span class="p">):</span>
-            <span class="c">#The outcome of a single trial game</span>
-            <span class="n">outcome</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
-            
-            <span class="c">#Alice wins if outcome is 1</span>
-            <span class="n">alice</span> <span class="o">+=</span> <span class="n">outcome</span>
-            <span class="c">#Bob winsif outcome is 0</span>
-            <span class="n">bob</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">outcome</span><span class="p">)</span>
-
-            <span class="c">#The condition which is provided in the problem</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">alice</span> <span class="o">==</span> <span class="mi">5</span> <span class="ow">and</span> <span class="n">bob</span> <span class="o">==</span> <span class="mi">3</span><span class="p">):</span>
-                <span class="n">flag_condition</span> <span class="o">=</span> <span class="bp">True</span>
-                <span class="n">count_cond_hit</span> <span class="o">+=</span> <span class="mi">1</span>
-
-        <span class="c">#Someone has won the game</span>
-        <span class="c">#checking if the condition was hit</span>
-        <span class="c">#in such condition how many times did bob win</span>
-        <span class="k">if</span> <span class="n">flag_condition</span><span class="p">:</span>
-            <span class="k">if</span> <span class="mi">6</span> <span class="o">==</span> <span class="n">alice</span><span class="p">:</span>
-                <span class="n">count_alice_win</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">count_bob_win</span> <span class="o">+=</span> <span class="mi">1</span>
-    
-    <span class="c">#The divison of condition_hit to the time bob win is the</span>
-    <span class="c">#condition probability of Bob wining given P(Bob| A=5, B=3)</span>
-    <span class="n">prob_bob_wining</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prob_bob_wining</span><span class="p">,</span> <span class="n">count_bob_win</span><span class="o">/</span> <span class="n">count_cond_hit</span><span class="p">)</span>
-
-<span class="k">print</span> <span class="p">(</span><span class="s">"P : "</span><span class="p">,</span><span class="n">p</span> <span class="p">,</span><span class="s">" condition hit : "</span><span class="p">,</span> <span class="n">count_cond_hit</span><span class="p">)</span>
-<span class="k">print</span> <span class="p">(</span><span class="s">"Bob win after condition : "</span><span class="p">,</span> <span class="n">count_bob_win</span><span class="p">)</span>
-<span class="k">print</span> <span class="p">(</span><span class="s">"Alice win after condition : "</span><span class="p">,</span> <span class="n">count_alice_win</span><span class="p">)</span>
-<span class="k">print</span> <span class="p">(</span><span class="s">"Bob chance of wining ::   "</span><span class="p">,</span> <span class="n">count_bob_win</span><span class="o">/</span><span class="n">count_cond_hit</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span> <span class="p">(</span><span class="s">'./naive_bayes_dataset.csv'</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1112,203 +1060,21 @@ h6:hover .anchor-link {
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>P :  0.15598397788391893  condition hit :  1170
-Bob win after condition :  111
-Alice win after condition :  1059
-Bob chance of wining ::    0.09487179487179487
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [44]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="c">#Plotting the conditional probability of p(Bob| A=5, B=3) </span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">prob_bob_wining</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area"><div class="prompt output_prompt">Out[44]:</div>
-<div class="output_text output_subarea output_execute_result">
-<pre>(array([  1.,   4.,  11.,  13.,  20.,  20.,  21.,   7.,   2.,   1.]),
- array([ 0.07123034,  0.0753562 ,  0.07948206,  0.08360792,  0.08773378,
-         0.09185964,  0.09598549,  0.10011135,  0.10423721,  0.10836307,
-         0.11248893]),
- <a list of 10 patch objects>)</pre>
-</div>
-</div>
-<div class="output_area"><div class="prompt"></div>
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-">
-</img></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Bayesian-view-of-Bob-wining-:-Analytic-Solution">Bayesian view of Bob wining : Analytic Solution<a class="anchor-link" href="#Bayesian-view-of-Bob-wining-:-Analytic-Solution">¶</a></h1><p>{See the document for the proof}</p>
-<p>This is a special case of Bayesian analysis in which we can can have a analytic solution. (Not true for all other cases of bayesian analysis)</p>
-$$ P( Bob | A=5, B=3 ) = \frac {B(5+a,3+b+3) }{B(5+a,3+b)} $$
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [3]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">math</span>
- 
-<span class="n">a_1</span> <span class="o">=</span> <span class="mi">1</span> <span class="c">#prior</span>
-<span class="n">a_2</span> <span class="o">=</span> <span class="mi">1</span> <span class="c">#prior for uniform beta distribution. Non informative prior</span>
-
-<span class="k">def</span> <span class="nf">beta_1</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
-     
-    <span class="sd">'''uses gamma function or inbuilt math.gamma() to compute values of beta function'''</span>
-     
-    <span class="n">beta</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">beta</span>
-
-
-<span class="k">print</span> <span class="p">(</span><span class="n">beta_1</span><span class="p">(</span><span class="mi">5</span> <span class="o">+</span> <span class="n">a_1</span><span class="p">,</span> <span class="mi">3</span><span class="o">+</span><span class="n">a_2</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="n">beta_1</span><span class="p">(</span><span class="mi">5</span> <span class="o">+</span> <span class="n">a_1</span><span class="p">,</span> <span class="mi">3</span> <span class="o">+</span> <span class="n">a_2</span> <span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>0.09090909090909091
+<pre>      Age  Income Student Credit_Rating Buys_Computer
+0    <=30    high      no          fair            no
+1    <=30    high      no     excellent            no
+2   31-40    high      no          fair           yes
+3     >40  medium      no          fair           yes
+4     >40     low     yes          fair           yes
+5     >40     low     yes     excellent            no
+6   31-40     low     yes     excellent           yes
+7    <=30  medium      no          fair            no
+8    <=30     low     yes          fair           yes
+9     >40  medium     yes          fair           yes
+10   <=30  medium     yes     excellent           yes
+11  31-40  medium      no     excellent           yes
+12  31-40    high     yes          fair           yes
+13    >40  medium      no     excellent            no
 </pre>
 </div>
 </div>
@@ -1320,18 +1086,8 @@ $$ P( Bob | A=5, B=3 ) = \frac {B(5+a,3+b+3) }{B(5+a,3+b)} $$
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">¶</a></h1><h2 id="Frequentist-of-Bob-wining-=-$(5/3)^3-$-=-1/18-=-0.05">Frequentist of Bob wining = $(5/3)^3 $ = 1/18 = 0.05<a class="anchor-link" href="#Frequentist-of-Bob-wining-=-$(5/3)^3-$-=-1/18-=-0.05">¶</a></h2><h2 id="Bayesian-of-Bob-wining--=-0.09-$\sim$-1/10">Bayesian of Bob wining  = 0.09 $\sim$ 1/10<a class="anchor-link" href="#Bayesian-of-Bob-wining--=-0.09-$\sim$-1/10">¶</a></h2><h2 id="By-Bootstrapping-=-0.09-0.1-$\sim$-1/10">By Bootstrapping = 0.09-0.1 $\sim$ 1/10<a class="anchor-link" href="#By-Bootstrapping-=-0.09-0.1-$\sim$-1/10">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython2"><pre> 
-</pre></div>
-</div>
+<h1 id="Formulation">Formulation<a class="anchor-link" href="#Formulation">¶</a></h1>$$ P(Buys computer | Age, Income, Student, Credit rating) = \frac{P(Age, Income, Student, Credit rating | Buys computer) P(Buys computer) } {P(Age, Income, Student, Credit rating)}$$<p>The Naive part of the Naive Bayes algorithm is the following assumptiong that the features are mutually independent(which is rarely true). But it allows us to do this simplfyied mathematics .</p>
+$$ P(Age, Income, Student, Credit rating | Buys computer) = P(Age |  Buys computer) * P(Income |  Buys computer) * P(Student |  Buys computer) * P(Credit rating |  Buys computer)$$
 </div>
 </div>
 </div>
@@ -1340,61 +1096,21 @@ $$ P( Bob | A=5, B=3 ) = \frac {B(5+a,3+b+3) }{B(5+a,3+b)} $$
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Coin-example-:-Two-heads">Coin example : Two heads<a class="anchor-link" href="#Coin-example-:-Two-heads">¶</a></h1><p><a href="http://www.behind-the-enemy-lines.com/2008/01/are-you-bayesian-or-frequentist-or.html">http://www.behind-the-enemy-lines.com/2008/01/are-you-bayesian-or-frequentist-or.html</a></p>
-<p>Need to find</p>
-<h1 id="P(HH-|-H=10,-T=4-)-?">P(HH | H=10, T=4 ) ?<a class="anchor-link" href="#P(HH-|-H=10,-T=4-)-?">¶</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Bootstraping-method">Bootstraping method<a class="anchor-link" href="#Bootstraping-method">¶</a></h1>
+<h1 id="Calculating-the-prior">Calculating the prior<a class="anchor-link" href="#Calculating-the-prior">¶</a></h1><p>prior = P(Buys computer)</p>
+<p>P(Buys computer ) = How many times (yes/no) appears / Total observations</p>
+<p>P(Buys computer = Yes)
+P(Buys computer = No)</p>
+<p>We use the groupby function from pandas</p>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [7]:</div>
+<div class="prompt input_prompt">In [69]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">count_2_heads</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">count_condition_hit</span> <span class="o">=</span> <span class="mi">0</span>
-
-<span class="n">percentage_of_2_heads</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
-<span class="c">#for p in np.arange(0.1, 1, 0.1):</span>
-<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">):</span>
-    
-
-    <span class="c">#for i in range(10000):</span>
-    <span class="c">#randomly find a p value</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-
-    <span class="c">#Toss the coint 14 times</span>
-    <span class="n">outcome</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">p</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
-
-    <span class="c">#Check if the coin toss had 10 heads</span>
-    <span class="k">if</span> <span class="p">(</span><span class="mi">10</span> <span class="o">==</span> <span class="n">outcome</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="p">):</span>
-        <span class="n">count_condition_hit</span> <span class="o">+=</span> <span class="mi">1</span>
-        
-        <span class="c">#Find the probability of 2 heads</span>
-        <span class="n">heads_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">p</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
- 
-        <span class="c"># Check if there are 2 heads</span>
-        <span class="k">if</span> <span class="p">(</span><span class="mi">2</span> <span class="o">==</span> <span class="n">heads_2</span><span class="o">.</span><span class="n">sum</span><span class="p">()):</span>
-            <span class="n">count_2_heads</span> <span class="o">+=</span> <span class="mi">1</span>
-
-    <span class="c">#print ("For P : ", p ,"Condition Hit : ", count_condition_hit, "Count 2 heads : ", count_2_heads)</span>
-    <span class="c">#if (count_condition_hit):</span>
-    <span class="c">#    print ("Percentage of 2 Heads : ", (count_2_heads/ count_condition_hit))</span>
-    <span class="c">#else:</span>
-    <span class="c">#    print ("Precentage of 2 Heads : ", 0)</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">count_condition_hit</span><span class="p">):</span>
-        <span class="n">percentage_of_2_heads</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">percentage_of_2_heads</span><span class="p">,</span> <span class="p">(</span><span class="n">count_2_heads</span><span class="o">/</span> <span class="n">count_condition_hit</span><span class="p">))</span>
-    
-<span class="k">print</span> <span class="p">(</span><span class="s">"Percentage of 2 Heads : "</span><span class="p">,</span> <span class="p">(</span><span class="n">count_2_heads</span><span class="o">/</span> <span class="n">count_condition_hit</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">prior</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">'Buys_Computer'</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span> <span class="c">#count()['Age']/len(data)</span>
+<span class="nb">print</span> <span class="n">prior</span>
 </pre></div>
 </div>
 </div>
@@ -1403,7 +1119,10 @@ $$ P( Bob | A=5, B=3 ) = \frac {B(5+a,3+b+3) }{B(5+a,3+b)} $$
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Percentage of 2 Heads :  0.47881743370923496
+<pre>Buys_Computer
+no     0.357143
+yes    0.642857
+dtype: float64
 </pre>
 </div>
 </div>
@@ -1415,35 +1134,24 @@ $$ P( Bob | A=5, B=3 ) = \frac {B(5+a,3+b+3) }{B(5+a,3+b)} $$
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Bayesian-Approach">Bayesian Approach<a class="anchor-link" href="#Bayesian-Approach">¶</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>$$ P ( HH | data ) = \frac {B(10+a+2,4+b) } {B(10+a,4+b)} $$</p>
+<h1 id="Calculating-likelihood">Calculating likelihood<a class="anchor-link" href="#Calculating-likelihood">¶</a></h1><p>Likelihood is generated for each of the features of the dataset.
+Basicallay likelihood is probability of finding each feature given class label.</p>
+$$ P(Age |  Buys computer) $$$$ P(Income |  Buys computer) $$$$ P(Student |  Buys computer) $$$$ P(Credit rating |  Buys computer) $$
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [91]:</div>
+<div class="prompt input_prompt">In [81]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">math</span>
- 
-<span class="k">def</span> <span class="nf">beta_1</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
-     
-    <span class="sd">'''uses gamma function or inbuilt math.gamma() to compute values of beta function'''</span>
-     
-    <span class="n">beta</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">beta</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">likelihood</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">likelihood</span><span class="p">[</span><span class="s">'Credit_Rating'</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">'Buys_Computer'</span><span class="p">,</span> <span class="s">'Credit_Rating'</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">prior</span><span class="p">)</span>
+<span class="n">likelihood</span><span class="p">[</span><span class="s">'Age'</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">'Buys_Computer'</span><span class="p">,</span> <span class="s">'Age'</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">prior</span><span class="p">)</span>
+<span class="n">likelihood</span><span class="p">[</span><span class="s">'Income'</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">'Buys_Computer'</span><span class="p">,</span> <span class="s">'Income'</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">prior</span><span class="p">)</span>
+<span class="n">likelihood</span><span class="p">[</span><span class="s">'Student'</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">'Buys_Computer'</span><span class="p">,</span> <span class="s">'Student'</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">prior</span><span class="p">)</span>
 
-
-<span class="k">print</span> <span class="p">(</span><span class="n">beta_1</span><span class="p">(</span><span class="mi">10</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">beta_1</span><span class="p">(</span><span class="mi">10</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">,</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">likelihood</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1452,7 +1160,30 @@ $$ P( Bob | A=5, B=3 ) = \frac {B(5+a,3+b+3) }{B(5+a,3+b)} $$
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>0.4852941176470588
+<pre>{'Credit_Rating': Buys_Computer  Credit_Rating
+no             excellent        0.600000
+               fair             0.400000
+yes            excellent        0.333333
+               fair             0.666667
+dtype: float64, 'Age': Buys_Computer  Age  
+no             <=30     0.600000
+               >40      0.400000
+yes            31-40    0.444444
+               <=30     0.222222
+               >40      0.333333
+dtype: float64, 'Student': Buys_Computer  Student
+no             no         0.800000
+               yes        0.200000
+yes            no         0.333333
+               yes        0.666667
+dtype: float64, 'Income': Buys_Computer  Income
+no             high      0.400000
+               low       0.200000
+               medium    0.400000
+yes            high      0.222222
+               low       0.333333
+               medium    0.444444
+dtype: float64}
 </pre>
 </div>
 </div>
@@ -1464,7 +1195,115 @@ $$ P( Bob | A=5, B=3 ) = \frac {B(5+a,3+b+3) }{B(5+a,3+b)} $$
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">¶</a></h1><h2 id="Frequentist-answer-of-2-Heads-=-$(10/14)^2-\sim-0.51-$">Frequentist answer of 2 Heads = $(10/14)^2 \sim 0.51 $<a class="anchor-link" href="#Frequentist-answer-of-2-Heads-=-$(10/14)^2-\sim-0.51-$">¶</a></h2><h2 id="Bayesian-answer-of-2-Heads--=-0.485">Bayesian answer of 2 Heads  = 0.485<a class="anchor-link" href="#Bayesian-answer-of-2-Heads--=-0.485">¶</a></h2><h2 id="By-Bootstrapping-=-0.47">By Bootstrapping = 0.47<a class="anchor-link" href="#By-Bootstrapping-=-0.47">¶</a></h2>
+<h1 id="Calculating-posterior">Calculating posterior<a class="anchor-link" href="#Calculating-posterior">¶</a></h1><p>We need to if a person wil buy computer based on the following new information</p>
+<p>{"Age":'<=30', "Income":"medium", "Student":'yes' , "Credit_Rating":'fair'}</p>
+<p>Substituing the values in the likehood data and in the bayes formula, we get</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [77]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Probability that the person will buy</span>
+<span class="n">p_yes</span> <span class="o">=</span> <span class="n">likelihood</span><span class="p">[</span><span class="s">'Age'</span><span class="p">][</span><span class="s">'yes'</span><span class="p">][</span><span class="s">'<=30'</span><span class="p">]</span> <span class="o">*</span> <span class="n">likelihood</span><span class="p">[</span><span class="s">'Income'</span><span class="p">][</span><span class="s">'yes'</span><span class="p">][</span><span class="s">'medium'</span><span class="p">]</span> <span class="o">*</span> \
+        <span class="n">likelihood</span><span class="p">[</span><span class="s">'Student'</span><span class="p">][</span><span class="s">'yes'</span><span class="p">][</span><span class="s">'yes'</span><span class="p">]</span> <span class="o">*</span> <span class="n">likelihood</span><span class="p">[</span><span class="s">'Credit_Rating'</span><span class="p">][</span><span class="s">'yes'</span><span class="p">][</span><span class="s">'fair'</span><span class="p">]</span> \
+        <span class="o">*</span> <span class="n">prior</span><span class="p">[</span><span class="s">'yes'</span><span class="p">]</span>
+
+<span class="c"># Probability that the person will NOT buy</span>
+<span class="n">p_no</span> <span class="o">=</span> <span class="n">likelihood</span><span class="p">[</span><span class="s">'Age'</span><span class="p">][</span><span class="s">'no'</span><span class="p">][</span><span class="s">'<=30'</span><span class="p">]</span> <span class="o">*</span> <span class="n">likelihood</span><span class="p">[</span><span class="s">'Income'</span><span class="p">][</span><span class="s">'no'</span><span class="p">][</span><span class="s">'medium'</span><span class="p">]</span> <span class="o">*</span> \
+       <span class="n">likelihood</span><span class="p">[</span><span class="s">'Student'</span><span class="p">][</span><span class="s">'no'</span><span class="p">][</span><span class="s">'yes'</span><span class="p">]</span> <span class="o">*</span> <span class="n">likelihood</span><span class="p">[</span><span class="s">'Credit_Rating'</span><span class="p">][</span><span class="s">'no'</span><span class="p">][</span><span class="s">'fair'</span><span class="p">]</span> \
+       <span class="o">*</span> <span class="n">prior</span><span class="p">[</span><span class="s">'no'</span><span class="p">]</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="s">'Yes : '</span><span class="p">,</span> <span class="n">p_yes</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s">'No :  '</span><span class="p">,</span> <span class="n">p_no</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>('Yes : ', 0.028218694885361544)
+('No :  ', 0.0068571428571428551)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As we can see there is a higher probability that the person will <strong>buy</strong> the computer.</p>
+<p>Note : We dont need to calculate the denominator of bayes as in the end we need to do comparison between the different probabilities so dividing by same number dsnt change the comparison.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Using-Sklearn">Using Sklearn<a class="anchor-link" href="#Using-Sklearn">¶</a></h1><p>We try to solve the same problem using <a href="http://scikit-learn.org/stable/modules/naive_bayes.html">Naive Bayes</a> calssifier implemented in the sklearn library</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [30]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">LabelEncoder</span>
+<span class="n">encoded_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">LabelEncoder</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [29]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="k">import</span> <span class="n">MultinomialNB</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">MultinomialNB</span><span class="p">()</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">encoded_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s">'Buys_Computer'</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">encoded_data</span><span class="p">[</span><span class="s">'Buys_Computer'</span><span class="p">])</span>
+
+<span class="c"># {"Age":'<=30', "Income":"medium", "Student":'yes' , "Credit_Rating":'fair'}</span>
+<span class="c"># The data is encoded as [1,2,1,1]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">_joint_log_likelihood</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s">"Prediction of : "</span><span class="p">,</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[-8.29709436 -7.15971488]]
+('Prediction of : ', array([1]))
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Thus even with Sklearn the answer is <strong>YES</strong> . In sklearn the log_likelihood is being used rather than the likelihood.</p>
+<p>The beauty of the Naive Bayes for the discretized features set is that it just involves <strong>counting and multiplication </strong> to get the answer. The algorithm can be extended to continous feature variables. For continuous feature variables we need to decide which probability distributions to use and their likelihoods.</p>
+<h3 id="Thus-we-have-implemented-the-Naive-Bayes-algorithm-using--Pandas-library-vectorization--properties.">Thus we have implemented the Naive Bayes algorithm using <strong> Pandas library vectorization </strong> properties.<a class="anchor-link" href="#Thus-we-have-implemented-the-Naive-Bayes-algorithm-using--Pandas-library-vectorization--properties.">¶</a></h3><h4 id="In-the-next-blog-we-will-solve-the-naive-bayes-problem-using--Probabilistic-Programming--techniques.">In the next blog we will solve the naive bayes problem using <strong> Probabilistic Programming </strong> techniques.<a class="anchor-link" href="#In-the-next-blog-we-will-solve-the-naive-bayes-problem-using--Probabilistic-Programming--techniques.">¶</a></h4>
 </div>
 </div>
 </div>
